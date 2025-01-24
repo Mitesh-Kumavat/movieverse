@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MovieVerse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        .netflix-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://assets.nflxext.com/ffe/siteui/vlv3/594f8025-139a-4a35-b58d-4ecf8fdc507c/d3c4e455-f0bf-4003-b7cd-511dda6da82a/IN-en-20240108-popsignuptwoweeks-perspective_alpha_website_large.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body class="netflix-bg min-h-screen">
+    <!-- Header -->
+    <header class="px-4 py-3 sm:py-5">
+        <div class="max-w-[1170px] mx-auto">
+            <h1 class="text-3xl sm:text-4xl font-bold" style="font-family: 'Bebas Neue', sans-serif;">
+                <a href="/">
+                    <span class="text-[#e50914]">MOVIE</span><span class="text-white">VERSE</span>
+                </a>
+            </h1>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <main class="mt-4 sm:mt-8 px-4">
+        <div class="max-w-[450px] mx-auto p-7 sm:p-8 md:p-16 bg-black/75 rounded-lg">
+            <h2 class="text-white text-2xl sm:text-3xl font-bold mb-4 sm:mb-8">Log In</h2>
+            <form class="space-y-4">
+                <div>
+                    <input type="text" id="email" placeholder="Email "
+                        class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded bg-[#333] text-white placeholder-gray-400 focus:outline-none focus:bg-[#454545] text-sm sm:text-base">
+                </div>
+                <div>
+                    <input type="password" id="password" placeholder="Password"
+                        class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded bg-[#333] text-white placeholder-gray-400 focus:outline-none focus:bg-[#454545] text-sm sm:text-base">
+                </div>
+                <button type="submit"
+                    class="w-full bg-[#e50914] text-white py-3 sm:py-4 rounded font-medium text-sm sm:text-base">
+                    Log In
+                </button>
+
+            </form>
+            <div class="mt-8 ">
+                <p class="text-gray-400 text-sm sm:text-base">
+                    New to MovieVerse?
+                    <a href="../signup/index.html" class="text-white hover:underline">Sign up now</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="./scripts.js"></script>
+</body>
+
+</html>

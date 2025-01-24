@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results | MovieVerse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="./logo/movieverse.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-black text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
+        <div class="max-w-[1170px] mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <a href="/">
+                    <h1 class="text-4xl font-bold" style="font-family: 'Bebas Neue', sans-serif;">
+                        <span class="text-[#e50914]">MOVIE</span><span class="text-white">VERSE</span>
+                    </h1>
+                </a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <form id="searchForm" class="relative">
+                    <input type="search" id="searchBar" placeholder="Search"
+                        class="bg-black/20 border border-white/30 rounded px-4 py-1 text-sm placeholder-gray-400 focus:outline-none focus:border-white w-32 md:w-auto">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-12 max-w-[1170px] mx-auto">
+        <h2 class="text-3xl font-bold mb-6 ml-4 flex flex-wrap" id="userName">User's Watchlist</h2>
+
+        <!-- watchlist -->
+        <div id="watchlist" class="flex justify-center gap-10 items-center flex-wrap">
+
+        </div>
+    </main>
+
+    <script type="module" src="./scripts.js"></script>
+</body>
+
+</html>
