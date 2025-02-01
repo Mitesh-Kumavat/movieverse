@@ -54,17 +54,19 @@ export async function checkWatchList() {
 export async function renderPoster(img_src, title, movieid) {
   let isAddedInWatchList = false;
 
+  document.querySelector(".poster-here").innerHTML = ` <img src="${img_src}" alt="${title}" class="w-auto h-[380px] sm:h-[500px] rounded-lg shadow-xl">`;
+
   try {
     const watchlistMoviesId = await checkWatchList();
     if (watchlistMoviesId.includes(movieid)) isAddedInWatchList = true;
   } catch (error) {
     console.error("Error checking the watchlist:", error);
   }
-
-  document.querySelector(".poster-here").innerHTML = ` <img src="${img_src}" alt="${title}" class="w-auto h-[380px] sm:h-[500px] rounded-lg shadow-xl">`;
-
+  document.querySelector("#watchlistButton").classList.remove("hidden")
   document.querySelector(".watchlist-buttons").innerHTML = `${isAddedInWatchList ? removeButton : addButton}`;
 }
+
+const loadingButton = `<div class="px-6">Loading...</div>`;
 
 const addButton = `<svg fill="white" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>Add to watchlist`;
 

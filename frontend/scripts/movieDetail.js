@@ -14,6 +14,15 @@ import {
   userId
 } from './util.js';
 
+let img;
+let title;
+const movieId = window.location.href.split("?id=")[1];
+let watchlistButton = document.getElementById('watchlistButton');
+
+renderPosterSkeleton();
+renderMovieHeaderSkeleton();
+renderOverviewContentSkeleton();
+
 async function displaySimilarMovies(movieId) {
   const container = document.querySelector(".realted-movies");
   loadingMovieCard(container);
@@ -24,9 +33,6 @@ async function displaySimilarMovies(movieId) {
   }
   movieCard(container, movies);
 }
-
-let img;
-let title;
 
 async function fetchMovieData(movieId) {
   const data = await fetchData(`/movie/${movieId}`);
@@ -41,6 +47,34 @@ async function fetchMovieData(movieId) {
   renderMovieHeader(data);
   renderOverviewContent(data);
   renderTrailer(data.trailer_link);
+}
+
+async function watchlistToggle(userId, movieId) {
+  if (!userId) {
+    window.alert("Please login to add to watchlist.");
+    window.location.href = "login/index.html";
+    console.error("User not logged in.");
+    return;
+  }
+  const res = await fetch(`${API_BASE_URL}/api/user/${userId}/watchlist`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      movieId
+    }),
+  })
+  const data = await res.json();
+  console.log(data);
+
+  renderPoster(img, title, movieId);
+}
+
+if (watchlistButton) {
+  watchlistButton.addEventListener("click", () => {
+    watchlistToggle(userId, movieId);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -81,13 +115,6 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
   }
 });
 
-const movieId = window.location.href.split("?id=")[1];
-
-
-renderPosterSkeleton();
-renderMovieHeaderSkeleton();
-renderOverviewContentSkeleton();
-
 fetchMovieData(movieId);
 displaySimilarMovies(movieId);
 
@@ -97,36 +124,3 @@ setupSearch({
   searchEndpoint: `${API_BASE_URL}/api/movie/search`,
   resultPageUrl: '/searchResult.html',
 });
-
-async function watchlistToggle(userId, movieId) {
-  if (!userId) {
-    window.alert("Please login to add to watchlist.");
-    window.location.href = "login/index.html";
-    console.error("User not logged in.");
-    return;
-  }
-  const res = await fetch(`${API_BASE_URL}/api/user/${userId}/watchlist`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      movieId
-    }),
-  })
-  const data = await res.json();
-  console.log(data);
-
-  renderPoster(img, title, movieId);
-}
-
-
-let watchlistButton = document.getElementById('watchlistButton');
-if (watchlistButton) {
-  watchlistButton.addEventListener("click", () => {
-    console.log("Button Clicked");
-    watchlistToggle(userId, movieId);
-  });
-} else {
-  console.log("Watchlist button not found.");
-}
