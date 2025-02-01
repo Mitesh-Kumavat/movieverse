@@ -5,18 +5,26 @@ const loginButton = document.querySelector("#login-btn");
 const errorMessage = document.querySelector(".error-message");
 
 const setLoadingButton = () => {
-    loginButton.textContent = "Loading...";
+    loginButton.innerHTML = `
+        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+        </svg>
+        Loading...
+    `;
     loginButton.classList.add("bg-[#f87171]");
     loginButton.classList.remove("bg-[#e50914]");
     loginButton.disabled = true;
-}
+};
 
 const removeLoadingButton = () => {
-    loginButton.textContent = "Log In";
+    loginButton.innerHTML = "Log In"; // Restore original button text
     loginButton.classList.remove("bg-[#f87171]");
     loginButton.classList.add("bg-[#e50914]");
     loginButton.disabled = false;
-}
+};
+
 
 const showError = (message) => {
     errorMessage.textContent = message;

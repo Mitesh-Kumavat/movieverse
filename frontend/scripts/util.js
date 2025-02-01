@@ -1,7 +1,6 @@
 export const API_BASE_URL = "https://flask-movieverse.onrender.com";
-// export const API_BASE_URL = "http://127.0.0.1:5000";
-
 export const userId = localStorage.getItem("userId")
+// export const API_BASE_URL = "http://127.0.0.1:5000";
 
 export async function fetchData(endpoint) {
   const response = await fetch(`${API_BASE_URL}/api${endpoint}`);
@@ -50,7 +49,6 @@ export async function checkWatchList() {
   return data.map(movie => movie.imdb_title_id)
 }
 
-
 export async function renderPoster(img_src, title, movieid) {
   let isAddedInWatchList = false;
 
@@ -65,8 +63,6 @@ export async function renderPoster(img_src, title, movieid) {
   document.querySelector("#watchlistButton").classList.remove("hidden")
   document.querySelector(".watchlist-buttons").innerHTML = `${isAddedInWatchList ? removeButton : addButton}`;
 }
-
-const loadingButton = `<div class="px-6">Loading...</div>`;
 
 const addButton = `<svg fill="white" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>Add to watchlist`;
 
@@ -119,7 +115,7 @@ export function renderTrailer(trailerLink) {
     `;
   } else {
     document.querySelector(".trailer-here").innerHTML = `
-    <div class="w-full p-6 text-white text-3xl font-semibold">Youtube Trailer API Limit completed</div>
+    <div class="w-full p-6 text-white text-3xl font-semibold">Youtube Trailer API Limit is over.</div>
     `;
   }
 }
@@ -164,18 +160,6 @@ export function renderOverviewContentSkeleton() {
   `;
 }
 
-
-export async function fetchSearchResults(url, query) {
-  try {
-    const response = await fetch(`${url}?search=${query}`);
-    if (!response.ok) throw new Error('Failed to fetch data');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return [];
-  }
-}
-
 export function renderSuggestions(modal, movies, query) {
   if (movies.length === 0) {
     modal.innerHTML = `<p class="text-gray-400 text-center py-3">No results found</p>`;
@@ -209,6 +193,17 @@ export function renderSuggestions(modal, movies, query) {
 
   modal.innerHTML = suggestionsHTML + showAllButton;
   modal.classList.remove('hidden');
+}
+
+export async function fetchSearchResults(url, query) {
+  try {
+    const response = await fetch(`${url}?search=${query}`);
+    if (!response.ok) throw new Error('Failed to fetch data');
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return [];
+  }
 }
 
 export function setupSearch({ searchBar, suggestionsModal, searchEndpoint, resultPageUrl }) {

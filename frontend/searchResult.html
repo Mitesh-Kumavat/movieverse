@@ -16,8 +16,11 @@
         <div class="max-w-[1170px] mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center gap-8">
                 <h1 class="text-4xl font-bold" style="font-family: 'Bebas Neue', sans-serif;">
-                    <a href="/">
+                    <a href="/" class="max-sm:hidden">
                         <span class="text-[#e50914]">MOVIE</span><span class="text-white">VERSE</span>
+                    </a>
+                    <a href="/" class="sm:hidden">
+                        <span class="text-[#e50914]">M</span><span class="text-white ml-1/2">V</span>
                     </a>
                 </h1>
             </div>
@@ -28,7 +31,7 @@
                         <input type="search" id="SearchBar" autocomplete="off" placeholder="Search"
                             class="bg-transparent border border-white/30 rounded px-4 py-1 text-sm placeholder-gray-400 focus:outline-none h-10 focus:border-white min-w-[500px] md:w-auto max-sm:min-w-[190px]">
                         <div id="SuggestionsModal"
-                            class="absolute top-full left-0 w-full bg-transparent/90  backdrop-blur border border-gray-700 rounded mt-1 hidden rounded-br-2xl rounded-bl-2xl">
+                            class="absolute max-sm:fixed top-full left-0 w-full bg-transparent/90  backdrop-blur border border-gray-700 rounded mt-1 hidden rounded-br-2xl rounded-bl-2xl">
                             <!-- Suggestions will be injected here -->
                         </div>
                     </div>

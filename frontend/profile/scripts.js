@@ -17,14 +17,17 @@ const fetchWatchList = async () => {
     const username = await getUserName(userid);
     const modiefiedUsername = String(username).charAt(0).toUpperCase() + String(username).slice(1);
 
+    document.querySelector("#userName").innerText = `${modiefiedUsername}'s Watchlist`
+
     if (res.status !== 200) {
         watchlistContainer.innerHTML = `<div class="text-center text-2xl text-red-500">Error fetching watchlist</div>`
         return;
     }
 
-    document.querySelector("#userName").innerText = `${modiefiedUsername}'s Watchlist`
-    watchlistContainer.innerHTML = `<div class="text-center text-2xl text-gray-500 mt-12">No movies in watchlist</div>`;
-
+    if (data.length === 0) {
+        watchlistContainer.innerHTML = `<div class="text-center text-2xl text-gray-500 mt-12">No movies in watchlist</div>`;
+        return;
+    }
     movieCard(watchlistContainer, data);
 }
 
