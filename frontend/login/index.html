@@ -42,13 +42,16 @@
                     <input type="password" id="password" placeholder="Password"
                         class="w-full px-4 sm:px-5 py-3 sm:py-4 rounded bg-[#333] text-white placeholder-gray-400 focus:outline-none focus:bg-[#454545] text-sm sm:text-base">
                 </div>
-                <button type="submit"
+                <button type="submit" id="login-btn"
                     class="w-full bg-[#e50914] text-white py-3 sm:py-4 rounded font-medium text-sm sm:text-base">
                     Log In
                 </button>
 
             </form>
             <div class="mt-8 ">
+                <p
+                    class="text-red-600 bg-white/80 px-4 py-2 mb-4 transition duration-300 rounded error-message hidden opacity-0">
+                </p>
                 <p class="text-gray-400 text-sm sm:text-base">
                     New to MovieVerse?
                     <a href="../signup/index.html" class="text-white hover:underline">Sign up now</a>

@@ -2,6 +2,7 @@ import { API_BASE_URL } from "../scripts/util.js";
 
 const signupForm = document.querySelector("form");
 const errorMessage = document.querySelector(".error-message");
+const signUpButton = document.querySelector("#signup-btn");
 
 const showError = (message) => {
     errorMessage.textContent = message;
@@ -16,20 +17,27 @@ const hideError = () => {
     }, 300);
 };
 
-signupForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+const setLoadingButton = () => {
+    signUpButton.textContent = "Loading...";
+    signUpButton.classList.add("bg-[#f87171]");
+    signUpButton.classList.remove("bg-[#e50914]");
+    signUpButton.disabled = true;
+}
 
-    const username = signupForm.querySelector('#username').value.trim();
-    const email = signupForm.querySelector('#email').value.trim();
-    const password = signupForm.querySelector('#password').value;
-    const confirmPassword = signupForm.querySelector('#password2').value;
+const removeLoadingButton = () => {
+    signUpButton.textContent = "Sign Up";
+    signUpButton.classList.remove("bg-[#f87171]");
+    signUpButton.classList.add("bg-[#e50914]");
+    signUpButton.disabled = false;
+}
 
+const signUp = async (username, email, password, confirmPassword) => {
     if (!username || !email || !password || !confirmPassword) {
         showError("Please fill in all fields.");
         return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     if (!emailRegex.test(email)) {
         showError("Please enter a valid email password.");
         return;
@@ -67,4 +75,23 @@ signupForm.addEventListener("submit", async (event) => {
         console.error("Error during signup:", error);
         showError("An error occurred. Please try again later.");
     }
+}
+
+signupForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const username = signupForm.querySelector('#username').value.trim();
+    const email = signupForm.querySelector('#email').value.trim();
+    const password = signupForm.querySelector('#password').value;
+    const confirmPassword = signupForm.querySelector('#password2').value;
+
+    try {
+        setLoadingButton();
+        await signUp(username, email, password, confirmPassword);
+        removeLoadingButton();
+    } catch (error) {
+        showError("An error occurred. Please try again later.");
+        removeLoadingButton();
+    }
+
 });
