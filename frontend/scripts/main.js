@@ -1,8 +1,6 @@
-import { API_BASE_URL, fetchData, movieCard, loadingMovieCard, setupSearch } from './util.js';
+import { API_BASE_URL, fetchData, movieCard, loadingMovieCard, setupSearch, showToast } from './util.js';
 
 const searchBar = document.getElementById('searchBar');
-const suggestionsModal = document.getElementById('suggestionsModal');
-let debounceTimeout;
 const userId = localStorage.getItem("userId");
 const authButtonsContainer = document.getElementById("authButtons");
 
@@ -120,10 +118,10 @@ document.addEventListener("DOMContentLoaded", function () {
 // Auth buttons
 if (userId) {
     authButtonsContainer.innerHTML = `
-        <button id="logoutButton" class="bg-[#e50914] text-white px-4 py-1 rounded font-medium text-sm sm:text-base">
+        <button id="logoutButton" class="bg-black/20 text-white border border-white/30 rounded px-4 max-sm:px-2 py-1 text-sm sm:text-base">
             Log Out
         </button>
-        <button id="logoutButton" class="bg-white/30 text-white px-4 py-1 rounded font-medium text-sm sm:text-base">
+        <button id="logoutButton" class="bg-[#e50914] text-white px-4 py-1 rounded font-medium text-sm sm:text-base">
             <a href="/profile/index.html">
                 Profile
             </a>
@@ -132,7 +130,7 @@ if (userId) {
 
     document.getElementById("logoutButton").addEventListener("click", () => {
         localStorage.removeItem("userId");
-        window.location.href = "/";
+        showToast("Logged out!", "/");
     });
 } else {
     authButtonsContainer.innerHTML = `
@@ -162,6 +160,3 @@ setupSearch({
     searchEndpoint: `${API_BASE_URL}/api/movie/search`,
     resultPageUrl: '/searchResult.html',
 });
-
-
-

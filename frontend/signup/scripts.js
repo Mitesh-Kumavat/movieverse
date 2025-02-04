@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../scripts/util.js";
+import { API_BASE_URL, showToast } from "../scripts/util.js";
 
 const signupForm = document.querySelector("form");
 const errorMessage = document.querySelector(".error-message");
@@ -11,10 +11,8 @@ const showError = (message) => {
 };
 
 const hideError = () => {
+    errorMessage.classList.add("hidden");
     errorMessage.classList.add("opacity-0");
-    setTimeout(() => {
-        errorMessage.classList.add("hidden");
-    }, 300);
 };
 
 const setLoadingButton = () => {
@@ -73,8 +71,7 @@ const signUp = async (username, email, password, confirmPassword) => {
         const result = await response.json();
 
         if (response.ok) {
-            alert("Signup successful! You can now log in.");
-            window.location.href = "/login";
+            showToast("Signup successful!", "/login/index.html");
         } else {
             showError(result.error || "Signup failed. Please try again.");
         }
@@ -100,5 +97,4 @@ signupForm.addEventListener("submit", async (event) => {
         showError("An error occurred. Please try again later.");
         removeLoadingButton();
     }
-
 });

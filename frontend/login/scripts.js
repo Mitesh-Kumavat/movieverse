@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "../scripts/util.js";
+import { API_BASE_URL, showToast } from "../scripts/util.js";
 
 const loginForm = document.querySelector("form");
 const loginButton = document.querySelector("#login-btn");
@@ -19,12 +19,11 @@ const setLoadingButton = () => {
 };
 
 const removeLoadingButton = () => {
-    loginButton.innerHTML = "Log In"; // Restore original button text
+    loginButton.innerHTML = "Log In";
     loginButton.classList.remove("bg-[#f87171]");
     loginButton.classList.add("bg-[#e50914]");
     loginButton.disabled = false;
 };
-
 
 const showError = (message) => {
     errorMessage.textContent = message;
@@ -34,9 +33,7 @@ const showError = (message) => {
 
 const hideError = () => {
     errorMessage.classList.add("opacity-0");
-    setTimeout(() => {
-        errorMessage.classList.add("hidden");
-    }, 300);
+    errorMessage.classList.add("hidden");
 };
 
 const login = async (email, password) => {
@@ -57,14 +54,14 @@ const login = async (email, password) => {
                 password,
             }),
         });
+        console.log(response);
 
 
         const result = await response.json();
 
         if (response.ok) {
-            showError("Login successful!");
             localStorage.setItem("userId", result.userId);
-            window.location.href = "../index.html";
+            showToast("Login successful!", "../index.html");
         } else {
             showError(result.error || "Login failed. Please try again.");
         }

@@ -11,7 +11,8 @@ import {
   renderOverviewContentSkeleton,
   setupSearch,
   API_BASE_URL,
-  userId
+  userId,
+  showToast
 } from './util.js';
 
 let img;
@@ -50,17 +51,22 @@ async function fetchMovieData(movieId) {
 }
 
 async function watchlistToggle(userId, movieId) {
+  if (!userId) {
+    document.querySelector(".watchlist-buttons").innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg> Login please... `;
+    watchlistButton.disabled = true;
+    showToast("Please login to add movie into watchlist.", "login/index.html");
+    return;
+  }
+
   document.querySelector(".watchlist-buttons").innerHTML = `
     <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
     </svg>Loading...`;
   watchlistButton.disabled = true;
-  if (!userId) {
-    window.alert("Please login to add to watchlist.");
-    window.location.href = "login/index.html";
-    return;
-  }
 
   const res = await fetch(`${API_BASE_URL}/api/user/${userId}/watchlist`, {
     method: "POST",
