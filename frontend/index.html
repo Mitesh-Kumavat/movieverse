@@ -28,212 +28,251 @@
 
         * {
             -ms-overflow-style: none;
-            /* IE and Edge */
             scrollbar-width: none;
-            /* Firefox */
         }
     </style>
 </head>
 
-<body class="bg-black text-white">
-    <div class="min-h-screen">
-        <div class="netflix-bg h-screen">
-            <!-- Header -->
-            <header class="px-4 py-5 flex items-center justify-between max-w-[1170px] mx-auto">
-                <div class="flex items-center gap-8">
-                    <h1 class="text-4xl font-bold" style="font-family: 'Bebas Neue', sans-serif;">
-                        <a href="/">
+<body class="bg-black text-white min-h-screen">
+    <div class="netflix-bg h-screen">
+        <!-- Header -->
+        <header class="px-4 py-5 flex items-center justify-between max-w-[1170px] mx-auto">
+            <div class="flex items-center gap-8">
+                <h1 class="text-4xl font-bold" style="font-family: 'Bebas Neue', sans-serif;">
+                    <a href="/">
 
-                            <span class="text-[#e50914] ">MOVIE</span><span class="text-white">VERSE</span>
-                        </a>
-                    </h1>
-                </div>
-
-                <div class="flex items-center max-sm:gap-2 gap-4" id="authButtons">
-                    <!-- These buttons will be dynamically replaced based on user authentication -->
-                </div>
-            </header>
-
-
-            <!-- Hero Section -->
-            <main class="max-w-[1170px] mx-auto px-4 text-center mt-16 sm:mt-24 lg:mt-32 py-6">
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5">
-                    Unlimited movies,<br />
-                    TV shows and more
+                        <span class="text-[#e50914] ">MOVIE</span><span class="text-white">VERSE</span>
+                    </a>
                 </h1>
-                <p class="text-lg sm:text-xl lg:text-2xl mb-5">Browse the movie with personalised recommendation.</p>
-                <p class="text-base sm:text-lg lg:text-xl mb-5">Ready to watch? Enter your favorite movie name and watch
-                    it.</p>
+            </div>
 
-                <form id="searchForm" class=" max-w-[700px] mx-auto flex flex-col sm:flex-row gap-3 relative">
-                    <div class="flex-1 relative">
-                        <input type="text" id="searchBar" autocomplete="off" placeholder="Search for movies"
-                            class="w-full px-4 py-3 sm:py-4 rounded bg-black/40 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:border-white text-sm sm:text-base" />
-                        <div id="suggestionsModal"
-                            class=" absolute z-[999] top-full left-0 w-full bg-transparent/60 backdrop-blur border border-gray-700 rounded mt-1 hidden rounded-br-2xl rounded-bl-2xl ">
-                            <!-- Suggestions will be injected here -->
-                        </div>
+            <div class="flex items-center max-sm:gap-2 gap-4" id="authButtons">
+                <!-- These buttons will be dynamically replaced based on user authentication -->
+            </div>
+        </header>
 
+
+        <!-- Hero Section -->
+        <main class="max-w-[1170px] mx-auto px-4 text-center mt-16 sm:mt-24 lg:mt-32 py-6">
+            <h1 class="max-sm:text-4xl text-5xl font-bold mb-5">
+                Unlimited movies,<br />
+                TV shows and more
+            </h1>
+            <p class="max-sm:text-xl text-2xl mb-5">Browse the movie with personalised recommendation.</p>
+            <p class="max-sm:text-base text-md mb-5">Ready to watch? Enter your favorite movie name and watch
+                it.</p>
+
+            <form id="searchForm" class=" max-w-[700px] mx-auto flex flex-col sm:flex-row gap-3 relative">
+                <div class="flex-1 relative">
+                    <input type="text" id="searchBar" autocomplete="off" placeholder="Search for movies"
+                        class="w-full px-4 py-3 sm:py-4 rounded bg-black/40 border border-white/30 text-white placeholder-gray-400 focus:outline-none focus:border-white text-sm sm:text-base" />
+                    <div id="suggestionsModal"
+                        class=" absolute top-full left-0 w-full bg-transparent/60 backdrop-blur border border-gray-700 rounded mt-1 hidden rounded-br-2xl rounded-bl-2xl ">
+                        <!-- Suggestions will be injected here -->
                     </div>
-                    <button type="submit" id="searchButton"
-                        class="bg-[#e50914] text-white px-6 py-3 sm:px-8 sm:py-4 rounded text-lg sm:text-xl font-medium flex items-center justify-center whitespace-nowrap">
-                        Search
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                </form>
-            </main>
-        </div>
 
-        <!-- Divider -->
-        <div class="w-full block bg-white h-2 opacity-30 "></div>
+                </div>
+                <button type="submit" id="searchButton"
+                    class="bg-[#e50914] text-white px-6 py-2 sm:px-8 sm:py-4 rounded text-lg sm:text-xl font-bold flex items-center justify-center whitespace-nowrap">
+                    Search
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </form>
+        </main>
+    </div>
 
-        <!-- Top Movies -->
-        <section class="px-4 py-8">
-            <div class="max-w-[1170px] mx-auto">
-                <!-- Header and Filters -->
-                <div class="mb-6">
-                    <h2 class="text-3xl font-bold mb-4">Trending Now</h2>
-                    <div class="flex gap-3">
-                        <div class="relative inline-block">
-                            <!-- Filter Section -->
-                            <div class="flex gap-3 overflow-x-scroll max-w-[90vw] ">
-                                <!-- Genre Filter -->
-                                <div class="relative inline-block">
-                                    <select id="genreFilter"
-                                        class="text-gray-00 appearance-none bg-transparent border border-white/30 rounded px-4 py-1 pr-8 text-sm hover:bg-white/10 focus:outline-none focus:border-white">
-                                        <option value="" class="text-gray-900">Select Genre</option>
-                                        <option value="action" class="text-gray-900">Action</option>
-                                        <option value="comedy" class="text-gray-900">Comedy</option>
-                                        <option value="drama" class="text-gray-900">Drama</option>
-                                        <option value="thriller" class="text-gray-900">Thriller</option>
-                                        <!-- Add more genres as needed -->
-                                    </select>
-                                    <svg class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </div>
+    <!-- Divider -->
+    <div class="w-full block bg-white h-2 opacity-30 "></div>
 
-                                <!-- Language Filter -->
-                                <div class="relative inline-block">
-                                    <select id="languageFilter"
-                                        class="text-gray-00 appearance-none bg-transparent border border-white/30 rounded px-4 py-1 pr-8 text-sm hover:bg-white/10 focus:outline-none focus:border-white">
-                                        <option value="" class="text-gray-900">Select Language</option>
-                                        <option value="english" class="text-gray-900">English</option>
-                                        <option value="hindi" class="text-gray-900">Hindi</option>
-                                        <option value="spanish" class="text-gray-900">Spanish</option>
-                                        <option value="french" class="text-gray-900">French</option>
-                                        <!-- Add more languages as needed -->
-                                    </select>
-                                    <svg class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </div>
-
-                                <!-- Rating Filter -->
-                                <div class="relative inline-block">
-                                    <select id="ratingFilter"
-                                        class="text-gray-00 appearance-none bg-transparent border border-white/30 rounded px-4 py-1 pr-8 text-sm hover:bg-white/10 focus:outline-none focus:border-white">
-                                        <option value="" class=" text-gray-900">Min Rating</option>
-                                        <option value=" 7.5" class="text-gray-900">7.5+</option>
-                                        <option value="8" class="text-gray-900">8+</option>
-                                        <option value="9" class="text-gray-900">9+</option>
-                                        <!-- Add more ratings as needed -->
-                                    </select>
-                                    <svg class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </div>
-
-                                <!-- Year Filter -->
-                                <div class="relative inline-block">
-                                    <select id="yearFilter"
-                                        class="text-gray-00 appearance-none bg-transparent border border-white/30 rounded px-4 py-1 pr-8 text-sm hover:bg-white/10 focus:outline-none focus:border-white">
-                                        <option value="" class="text-gray-900">Select Year Range</option>
-                                        <option value="2000-2020" class="text-gray-900">2000-2020</option>
-                                        <option value="2021-2025" class="text-gray-900">2021-2025</option>
-                                    </select>
-                                    <svg class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </div>
+    <!-- Top Movies -->
+    <section class="px-4 py-8">
+        <div class="max-w-[1170px] mx-auto">
+            <!-- Header and Filters -->
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold mb-4">Trending Now</h2>
+                <div class="flex gap-3">
+                    <div class="relative inline-block">
+                        <!-- Filter Section -->
+                        <div class="flex gap-3 overflow-x-scroll max-w-[90vw] ">
+                            <!-- Genre Filter -->
+                            <div class="relative inline-block">
+                                <select id="genreFilter"
+                                    class="text-gray-00 appearance-none bg-transparent border border-white/30 rounded px-4 py-1 pr-8 text-sm hover:bg-white/10 focus:outline-none focus:border-white">
+                                    <option value="" class="text-gray-900">Select Genre</option>
+                                    <option value="action" class="text-gray-900">Action</option>
+                                    <option value="comedy" class="text-gray-900">Comedy</option>
+                                    <option value="drama" class="text-gray-900">Drama</option>
+                                    <option value="thriller" class="text-gray-900">Thriller</option>
+                                    <!-- Add more genres as needed -->
+                                </select>
+                                <svg class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
                             </div>
 
+                            <!-- Language Filter -->
+                            <div class="relative inline-block">
+                                <select id="languageFilter"
+                                    class="text-gray-00 appearance-none bg-transparent border border-white/30 rounded px-4 py-1 pr-8 text-sm hover:bg-white/10 focus:outline-none focus:border-white">
+                                    <option value="" class="text-gray-900">Select Language</option>
+                                    <option value="english" class="text-gray-900">English</option>
+                                    <option value="hindi" class="text-gray-900">Hindi</option>
+                                    <option value="spanish" class="text-gray-900">Spanish</option>
+                                    <option value="french" class="text-gray-900">French</option>
+                                    <!-- Add more languages as needed -->
+                                </select>
+                                <svg class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+
+                            <!-- Rating Filter -->
+                            <div class="relative inline-block">
+                                <select id="ratingFilter"
+                                    class="text-gray-00 appearance-none bg-transparent border border-white/30 rounded px-4 py-1 pr-8 text-sm hover:bg-white/10 focus:outline-none focus:border-white">
+                                    <option value="" class=" text-gray-900">Min Rating</option>
+                                    <option value=" 7.5" class="text-gray-900">7.5+</option>
+                                    <option value="8" class="text-gray-900">8+</option>
+                                    <option value="9" class="text-gray-900">9+</option>
+                                    <!-- Add more ratings as needed -->
+                                </select>
+                                <svg class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
+
+                            <!-- Year Filter -->
+                            <div class="relative inline-block">
+                                <select id="yearFilter"
+                                    class="text-gray-00 appearance-none bg-transparent border border-white/30 rounded px-4 py-1 pr-8 text-sm hover:bg-white/10 focus:outline-none focus:border-white">
+                                    <option value="" class="text-gray-900">Select Year Range</option>
+                                    <option value="2000-2020" class="text-gray-900">2000-2020</option>
+                                    <option value="2021-2025" class="text-gray-900">2021-2025</option>
+                                </select>
+                                <svg class="w-4 h-4 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </div>
                         </div>
+
                     </div>
-                </div>
-
-                <!-- Movie Slider -->
-                <div class="relative">
-                    <!-- Scrollable Container -->
-                    <div class="flex gap-6 overflow-x-auto top-movies here  pb-8 scrollbar-hide">
-
-                        <!-- MOVIE CARD WILL COME HERE -->
-                    </div>
-
-                    <!-- Navigation Buttons - Only visible on desktop -->
-                    <button
-                        class="absolute -left-14 top-1/2 -translate-y-1/2 bg-white/10 p-2 rounded-full hover:bg-white/30 transition-colors hidden md:block left-nav">
-                        <svg class="w-6 h-6 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                    <button
-                        class="absolute -right-14 top-1/2 -translate-y-1/2 bg-white/10 p-2 rounded-full hover:bg-white/30 transition-colors hidden md:block right-nav">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-
                 </div>
             </div>
-        </section>
 
-        <!-- Featured Movies -->
-        <section class="px-4 py-8">
-            <div class="max-w-[1170px] mx-auto">
-                <!-- Header and Filters -->
-                <div class="mb-6">
-                    <h2 class="text-3xl font-bold mb-4">Featured Now</h2>
+            <!-- Movie Slider -->
+            <div class="relative">
+                <!-- Scrollable Container -->
+                <div class="flex gap-6 overflow-x-auto top-movies here  pb-8 scrollbar-hide">
+
+                    <!-- MOVIE CARD WILL COME HERE -->
                 </div>
 
-                <!-- Movie Slider -->
-                <div class="relative">
-                    <!-- Scrollable Container -->
-                    <div class="flex gap-6 overflow-x-auto featured-movies here pb-8 scrollbar-hide">
-                        <!-- Dynamic Movies Card will be added here.... -->
-                    </div>
+                <!-- Navigation Buttons - Only visible on desktop -->
+                <button
+                    class="absolute -left-14 top-1/2 -translate-y-1/2 bg-white/10 p-2 rounded-full hover:bg-white/30 transition-colors hidden md:block left-nav">
+                    <svg class="w-6 h-6 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+                <button
+                    class="absolute -right-14 top-1/2 -translate-y-1/2 bg-white/10 p-2 rounded-full hover:bg-white/30 transition-colors hidden md:block right-nav">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
 
-                    <!-- Navigation Buttons - Only visible on desktop -->
-                    <button
-                        class="absolute -left-14 top-1/2 -translate-y-1/2 bg-white/10 p-2 rounded-full hover:bg-white/30 transition-colors hidden md:block left-nav">
-                        <svg class="w-6 h-6 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+            </div>
+        </div>
+    </section>
 
-                    <button
-                        class="absolute -right-14 top-1/2 -translate-y-1/2 bg-white/10 p-2 rounded-full hover:bg-white/30 transition-colors hidden md:block right-nav">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
+    <!-- Featured Movies -->
+    <section class="px-4 py-8">
+        <div class="max-w-[1170px] mx-auto">
+            <!-- Header and Filters -->
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold mb-4">Featured Now</h2>
+            </div>
 
+            <!-- Movie Slider -->
+            <div class="relative">
+                <!-- Scrollable Container -->
+                <div class="flex gap-6 overflow-x-auto featured-movies here pb-8 scrollbar-hide">
+                    <!-- Dynamic Movies Card will be added here.... -->
+                </div>
+
+                <!-- Navigation Buttons - Only visible on desktop -->
+                <button
+                    class="absolute -left-14 top-1/2 -translate-y-1/2 bg-white/10 p-2 rounded-full hover:bg-white/30 transition-colors hidden md:block left-nav">
+                    <svg class="w-6 h-6 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+                <button
+                    class="absolute -right-14 top-1/2 -translate-y-1/2 bg-white/10 p-2 rounded-full hover:bg-white/30 transition-colors hidden md:block right-nav">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer section -->
+    <footer class="bg-black text-gray-300 py-8 mt-20">
+        <div class="max-w-[1170px] mx-auto px-4">
+            <div class="mb-8">
+                <p class="text-sm">
+                    Questions? Call
+                    <a href="tel:123-456-789" class="hover:underline">123-456-789</a>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <div class="space-y-3">
+                    <a href="#" class="block text-sm hover:underline">FAQ</a>
+                    <a href="#" class="block text-sm hover:underline">Investor Relations</a>
+                    <a href="#" class="block text-sm hover:underline">Privacy</a>
+                    <a href="#" class="block text-sm hover:underline">Speed Test</a>
+                </div>
+
+                <div class="space-y-3">
+                    <a href="#" class="block text-sm hover:underline">Help Centre</a>
+                    <a href="#" class="block text-sm hover:underline">Jobs</a>
+                    <a href="#" class="block text-sm hover:underline">Cookie Preferences</a>
+                    <a href="#" class="block text-sm hover:underline">Legal Notices</a>
+                </div>
+
+                <div class="space-y-3">
+                    <a href="#" class="block text-sm hover:underline">Account</a>
+                    <a href="#" class="block text-sm hover:underline">Ways to Watch</a>
+                    <a href="#" class="block text-sm hover:underline">Corporate Information</a>
+                    <a href="#" class="block text-sm hover:underline">Only on MovieVerse</a>
+                </div>
+
+                <div class="space-y-3">
+                    <a href="#" class="block text-sm hover:underline">Media Centre</a>
+                    <a href="#" class="block text-sm hover:underline">Terms of Use</a>
+                    <a href="#" class="block text-sm hover:underline">Contact Us</a>
                 </div>
             </div>
-        </section>
 
 
-    </div>
+            <p class="text-sm">&copy; Movieverse by <span class="hover:underline"> <a
+                        href="https://github.com/mitesh-kumavat" target="_blank">Mitesh Kumavat</a></span></p>
+        </div>
+    </footer>
 
     <script type="module" src="./scripts/main.js"></script>
 </body>

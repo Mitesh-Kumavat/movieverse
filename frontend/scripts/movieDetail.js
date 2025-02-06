@@ -1,5 +1,5 @@
+import { fetchData } from './api.js';
 import {
-  fetchData,
   loadingMovieCard,
   movieCard,
   renderPoster,

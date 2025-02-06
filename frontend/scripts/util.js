@@ -1,16 +1,15 @@
+import {
+  fetchData,
+  checkWatchList,
+  fetchSearchResults
+} from "./api.js";
+
+// export const API_BASE_URL = "https://flask-movieverse.onrender.com";
 export const userId = localStorage.getItem("userId")
 export const API_BASE_URL = "http://127.0.0.1:5000";
 
-export async function fetchData(endpoint) {
-  const response = await fetch(`${API_BASE_URL}/api${endpoint}`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data from ${API_BASE_URL}/api${endpoint}`);
-  }
-  return await response.json();
-}
 
 export async function movieCard(container, movies) {
-
   container.innerHTML = movies.map((movie, index) =>
     ` <div class="relative overflow-hidden rounded-xl flex-none w-[200px] sm:w-[260px] group cursor-pointer">
     <a href="/movieDetail.html?id=${movie.imdb_title_id}">
@@ -24,7 +23,6 @@ export async function movieCard(container, movies) {
                 </div>
                 </a>
         </div>`).join("");
-
 }
 
 export function loadingMovieCard(container) {
@@ -40,12 +38,6 @@ export function loadingMovieCard(container) {
     `).join("");
 
   container.innerHTML = skeletonCards;
-}
-
-export async function checkWatchList() {
-  const res = await fetch(`${API_BASE_URL}/api/user/${userId}/watchlist`)
-  const data = await res.json()
-  return data.map(movie => movie.imdb_title_id)
 }
 
 export async function renderPoster(img_src, title, movieid) {
@@ -194,17 +186,6 @@ export function renderSuggestions(modal, movies, query) {
   modal.classList.remove('hidden');
 }
 
-export async function fetchSearchResults(url, query) {
-  try {
-    const response = await fetch(`${url}?search=${query}`);
-    if (!response.ok) throw new Error('Failed to fetch data');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return [];
-  }
-}
-
 export function setupSearch({ searchBar, suggestionsModal, searchEndpoint, resultPageUrl }) {
   let debounceTimeout;
 
@@ -227,7 +208,7 @@ export function setupSearch({ searchBar, suggestionsModal, searchEndpoint, resul
         return;
       }
       renderSuggestions(suggestionsModal, movies, query);
-    }, 300);
+    }, 10);
   });
 
   document.querySelector('#searchForm').addEventListener('submit', (event) => {
@@ -242,7 +223,7 @@ export function setupSearch({ searchBar, suggestionsModal, searchEndpoint, resul
 export const showToast = (message, destination = null) => {
   const toast = document.createElement("div");
   toast.textContent = message;
-  toast.className = "fixed left-1/2 transform -translate-x-1/2 bottom-5 bg-gray-800/40 backdrop-blur-sm shadow-lg text-white px-6 py-3 rounded-lg shadow-lg text-sm font-medium transition-all opacity-100 min-w-max-content";
+  toast.className = "fixed z-[99999999] left-1/2 transform -translate-x-1/2 bottom-5 bg-gray-800/40 backdrop-blur-sm shadow-lg text-white px-6 py-3 rounded-lg shadow-lg text-sm font-medium transition-all opacity-100 min-w-max-content";
   document.body.appendChild(toast);
 
   setTimeout(() => {

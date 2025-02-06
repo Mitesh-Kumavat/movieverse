@@ -1,5 +1,5 @@
-import { API_BASE_URL, fetchData, movieCard, loadingMovieCard, setupSearch, showToast } from './util.js';
-
+import { API_BASE_URL, movieCard, loadingMovieCard, setupSearch, showToast } from './util.js';
+import { fetchData } from './api.js';
 const searchBar = document.getElementById('searchBar');
 const userId = localStorage.getItem("userId");
 const authButtonsContainer = document.getElementById("authButtons");
